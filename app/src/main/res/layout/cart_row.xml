@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="cartItem"
+            type="com.example.swd_cashier.models.CartItem" />
+    </data>
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip">
+
+        <TextView
+            android:id="@+id/tvCartProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:text="@{cartItem.product.name}"
+            android:padding="8dp"/>
+
+        <EditText
+            android:id="@+id/edtCartQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tvCartProductName"
+            android:text="@{String.valueOf(cartItem.quantity)}"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:padding="8dp"/>
+
+
+        <ImageButton
+            android:id="@+id/deleteProductButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_toLeftOf="@id/tvCartTotalPrice"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="8dp"
+            app:srcCompat="@drawable/ic_baseline_delete_24" />
+
+        <TextView
+            android:padding="8dp"
+            android:id="@+id/tvCartTotalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_alignParentRight="true"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:text="@{String.valueOf(cartItem.product.eventPrice * cartItem.quantity)}" />
+    </RelativeLayout>
+</layout>
