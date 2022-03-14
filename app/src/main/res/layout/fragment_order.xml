@@ -11,7 +11,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Success! You'll make us rich"
+        android:text="Thanh toán thành công! Cảm ơn bạn rất nhiều"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         />
 
@@ -24,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:text="Continue Making Customers Happy"
+        android:text="Tiếp tục bán hàng"
         />
 
 </LinearLayout >

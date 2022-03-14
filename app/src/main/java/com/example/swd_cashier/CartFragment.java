@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.lifecycle.Observer;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,8 @@ import com.example.swd_cashier.ui.main.MainViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -90,7 +93,7 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
         mainViewModel.getTotalPrice().observe(getViewLifecycleOwner(), new Observer<Double>() {
             @Override
             public void onChanged(Double aDouble) {
-                fragmentCartBinding.orderTotalTextView.setText("Total: VND " + aDouble.toString());
+                fragmentCartBinding.orderTotalTextView.setText("Tổng: " + aDouble.toString() + " VND");
             }
         });
 
@@ -110,8 +113,15 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
 
                 progressDialog = createProgressDialog(getContext());
                 mainViewModel.checkoutBill(billRequest);
-                progressDialog.dismiss();
-                navController.navigate(R.id.action_cartFragment_to_orderFragment);
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable(){
+                    public void run(){
+                        progressDialog.dismiss();
+                        navController.navigate(R.id.action_cartFragment_to_orderFragment);
+                    }
+                }, 2000);
+
             }
         });
 

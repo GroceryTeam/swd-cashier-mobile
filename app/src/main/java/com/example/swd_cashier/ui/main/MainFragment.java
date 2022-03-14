@@ -131,7 +131,7 @@ public class MainFragment extends Fragment implements ProductListAdapter.Product
                     })
                     .show();
         } else {
-            Snackbar.make(requireView(), "Already have the max quantity in cart.", Snackbar.LENGTH_LONG)
+            Snackbar.make(requireView(), "Số lượng đã tới giới hạn.", Snackbar.LENGTH_LONG)
                     .show();
         }
     }
