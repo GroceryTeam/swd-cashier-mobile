@@ -23,8 +23,8 @@ public class MainViewModel extends ViewModel {
     CartRepo cartRepo = new CartRepo();
     MutableLiveData<Product> mutableProduct = new MutableLiveData<>();
 
-    public MutableLiveData<ArrayList<Product>> loadProducts() {
-        return productRepo.callGetProductsAPI();
+    public MutableLiveData<ArrayList<Product>> loadProducts(String searchTerm) {
+        return productRepo.callGetProductsAPI(searchTerm);
     }
 
     public void setProduct(Product product) {

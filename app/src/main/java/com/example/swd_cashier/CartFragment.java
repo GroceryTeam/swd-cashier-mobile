@@ -40,11 +40,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CartFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CartFragment extends Fragment implements CartListAdapter.CartInterface {
 
     NavController navController;

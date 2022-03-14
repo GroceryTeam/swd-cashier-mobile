@@ -21,8 +21,8 @@ public class ProductRepo {
     private ArrayList<Product> productList = new ArrayList<>();
 
 
-    public MutableLiveData<ArrayList<Product>> callGetProductsAPI(){
-        Call<ProductResponse> call = ApiClient.getInstance().getProductAPIService().getProductList(1, "", 1, 100);
+    public MutableLiveData<ArrayList<Product>> callGetProductsAPI(String searchTerm){
+        Call<ProductResponse> call = ApiClient.getInstance().getProductAPIService().getProductList(1, searchTerm == null ? "" : searchTerm, 1, 100);
         call.enqueue(new Callback<ProductResponse>() {
 
             @Override

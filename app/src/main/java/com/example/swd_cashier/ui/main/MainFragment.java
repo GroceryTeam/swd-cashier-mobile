@@ -19,10 +19,14 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.EditText;
 
 import com.example.swd_cashier.R;
 import com.example.swd_cashier.adapters.ProductListAdapter;
@@ -30,6 +34,8 @@ import com.example.swd_cashier.models.Product;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainFragment extends Fragment implements ProductListAdapter.ProductListAdapterOnClickHandler {
 
@@ -40,6 +46,7 @@ public class MainFragment extends Fragment implements ProductListAdapter.Product
     public static String keyWord;
     public static Dialog progressDialog;
     private NavController navController;
+    EditText edtSearchProduct;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -58,7 +65,6 @@ public class MainFragment extends Fragment implements ProductListAdapter.Product
 
         navController = Navigation.findNavController(view);
         recyclerView = view.findViewById(R.id.productRecyclerView);
-
         progressDialog = createProgressDialog(getContext());
 
         Bundle bundle = this.getArguments();
@@ -74,7 +80,7 @@ public class MainFragment extends Fragment implements ProductListAdapter.Product
         mViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
         if (isNetworkConnected()) {
-            mViewModel.loadProducts().observe(this, new Observer<ArrayList<Product>>() {
+            mViewModel.loadProducts(null).observe(this, new Observer<ArrayList<Product>>() {
                 @Override
                 public void onChanged(ArrayList<Product> products) {
                     if (products != null) {
@@ -89,7 +95,46 @@ public class MainFragment extends Fragment implements ProductListAdapter.Product
         }
         recyclerView.setAdapter(productListAdapter);
         productListAdapter.notifyDataSetChanged();
+
+        edtSearchProduct = view.findViewById(R.id.edtSearchProduct);
+        edtSearchProduct.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            final Handler handler = new Handler();
+            Runnable workRunnable;
+            @Override
+            public void afterTextChanged(final Editable s) {
+                handler.removeCallbacks(workRunnable);
+                workRunnable = () -> reloadProduct(s.toString());
+                handler.postDelayed(workRunnable, 300 /*delay*/);
+            }
+
+            private final void reloadProduct(String searchTerm) {
+                progressDialog = createProgressDialog(getContext());
+                mViewModel.loadProducts(searchTerm).observe(MainFragment.this, new Observer<ArrayList<Product>>() {
+                    @Override
+                    public void onChanged(ArrayList<Product> products) {
+                        if (products != null) {
+                            modelRecyclerArrayList = products;
+                            productListAdapter.submitList(modelRecyclerArrayList);
+                            progressDialog.dismiss();
+                        }
+                    }
+                });
+                recyclerView.setAdapter(productListAdapter);
+                productListAdapter.notifyDataSetChanged();
+            }
+        });
     }
+
 
     private boolean isNetworkConnected() {
         ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);

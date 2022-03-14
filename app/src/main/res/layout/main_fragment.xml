@@ -7,8 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainFragment">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tvSearchProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tìm kiếm sản phẩm"
+        android:padding="5dp"/>
+    <EditText
+        android:id="@+id/edtSearchProduct"
+        android:layout_below="@id/tvSearchProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/edtSearchProduct"
         android:id="@+id/productRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,5 +33,5 @@
         app:spanCount="1"
         tools:listitem="@layout/product_row"
         />
-
+    </RelativeLayout>
 </FrameLayout >
