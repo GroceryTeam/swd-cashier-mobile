@@ -26,10 +26,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.swd_cashier.R;
 import com.example.swd_cashier.adapters.ProductListAdapter;
+import com.example.swd_cashier.models.Event;
 import com.example.swd_cashier.models.Product;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -47,6 +50,8 @@ public class MainFragment extends Fragment implements ProductListAdapter.Product
     public static Dialog progressDialog;
     private NavController navController;
     EditText edtSearchProduct;
+    TextView tvCurrentEventName;
+    Button btnViewCurrentEvent;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -66,11 +71,8 @@ public class MainFragment extends Fragment implements ProductListAdapter.Product
         navController = Navigation.findNavController(view);
         recyclerView = view.findViewById(R.id.productRecyclerView);
         progressDialog = createProgressDialog(getContext());
-
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            keyWord = bundle.getString("id");
-        }
+        tvCurrentEventName = view.findViewById(R.id.tvEvent);
+        btnViewCurrentEvent = view.findViewById(R.id.btnViewEventDetail);
 
         recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL));
@@ -88,13 +90,30 @@ public class MainFragment extends Fragment implements ProductListAdapter.Product
                         productListAdapter.submitList(modelRecyclerArrayList);
                         progressDialog.dismiss();
                     }
-                    //adapter.notifyDataSetChanged();
+                }
+            });
+
+            mViewModel.loadCurrentEvent().observe(this, new Observer<Event>() {
+                @Override
+                public void onChanged(Event event) {
+                    if (event != null) {
+                        tvCurrentEventName.setText(event.getEventName());
+                    } else {
+                        tvCurrentEventName.setText("Không có sự kiện nào đang diễn ra");
+                    }
 
                 }
             });
         }
         recyclerView.setAdapter(productListAdapter);
         productListAdapter.notifyDataSetChanged();
+
+        btnViewCurrentEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_mainFragment_to_eventFragment);
+            }
+        });
 
         edtSearchProduct = view.findViewById(R.id.edtSearchProduct);
         edtSearchProduct.addTextChangedListener(new TextWatcher() {
@@ -133,6 +152,8 @@ public class MainFragment extends Fragment implements ProductListAdapter.Product
                 productListAdapter.notifyDataSetChanged();
             }
         });
+
+
     }
 
 

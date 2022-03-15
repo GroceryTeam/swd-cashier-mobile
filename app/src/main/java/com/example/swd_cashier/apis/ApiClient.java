@@ -44,4 +44,8 @@ public class ApiClient {
     public BillAPIService getBillApiService() {
         return retrofit.create(BillAPIService.class);
     }
+
+    public EventAPIService getEventApiService() {
+        return retrofit.create(EventAPIService.class);
+    }
 }

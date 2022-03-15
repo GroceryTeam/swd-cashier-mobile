@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_mainFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -30,6 +33,15 @@
         tools:layout="@layout/fragment_order">
         <action
             android:id="@+id/action_orderFragment_to_shopFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="com.example.swd_cashier.EventFragment"
+        android:label="Event"
+        tools:layout="@layout/fragment_event">
+        <action
+            android:id="@+id/action_eventFragment_to_shopFragment"
             app:destination="@id/mainFragment" />
     </fragment>
 </navigation>

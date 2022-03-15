@@ -10,8 +10,31 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvEventTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sự kiện"
+            android:padding="5dp"/>
+        <TextView
+            android:id="@+id/tvEvent"
+            android:layout_below="@id/tvEventTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:padding="5dp"/>
+        <Button
+            android:id="@+id/btnViewEventDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="100px"
+            android:layout_alignParentRight="true"
+            android:text="Chi tiết sự kiện"
+            android:textSize="7dp"
+            android:backgroundTint="@color/teal_700"
+            />
     <TextView
         android:id="@+id/tvSearchProduct"
+        android:layout_below="@id/tvEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tìm kiếm sản phẩm"
@@ -24,14 +47,13 @@
         android:layout_marginBottom="5dp"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/edtSearchProduct"
-        android:id="@+id/productRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="1"
-        tools:listitem="@layout/product_row"
-        />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/edtSearchProduct"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="1"
+            tools:listitem="@layout/product_row" />
     </RelativeLayout>
 </FrameLayout >

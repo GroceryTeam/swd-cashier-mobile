@@ -10,8 +10,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.swd_cashier.models.BillRequest;
 import com.example.swd_cashier.models.CartItem;
+import com.example.swd_cashier.models.Event;
 import com.example.swd_cashier.models.Product;
 import com.example.swd_cashier.repositories.CartRepo;
+import com.example.swd_cashier.repositories.EventRepo;
 import com.example.swd_cashier.repositories.ProductRepo;
 
 import java.util.ArrayList;
@@ -21,10 +23,15 @@ public class MainViewModel extends ViewModel {
 
     ProductRepo productRepo = new ProductRepo();
     CartRepo cartRepo = new CartRepo();
+    EventRepo eventRepo = new EventRepo();
     MutableLiveData<Product> mutableProduct = new MutableLiveData<>();
 
     public MutableLiveData<ArrayList<Product>> loadProducts(String searchTerm) {
         return productRepo.callGetProductsAPI(searchTerm);
+    }
+
+    public MutableLiveData<Event> loadCurrentEvent() {
+        return eventRepo.callGetCurrentEventAPI();
     }
 
     public void setProduct(Product product) {
@@ -33,6 +40,10 @@ public class MainViewModel extends ViewModel {
 
     public LiveData<List<CartItem>> getCart() {
         return cartRepo.getCart();
+    }
+
+    public LiveData<Event> getEvent() {
+        return eventRepo.getEvent();
     }
 
     public boolean addItemToCart(Product product) {

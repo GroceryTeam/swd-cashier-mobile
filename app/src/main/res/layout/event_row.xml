@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="horizontal"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvEventRowName"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvEventRowOriginalPrice"
+        android:textStyle="normal"
+        android:textColor="@color/textSecondary"
+        android:layout_alignParentRight="true"
+
+        />
+    <TextView
+        android:layout_below="@id/tvEventRowOriginalPrice"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvEventRowEventPrice"
+        android:textStyle="normal"
+        android:textSize="46px"
+        android:textColor="@color/teal_700"
+        />
+</RelativeLayout>
